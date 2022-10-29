@@ -49,11 +49,26 @@ do
         p)
 
             dataDirectory=${OPTARG}
-            # Global Variables
-            set files
-            getAllKNXRawFiles $dataDirectory
-            lorawanData
+            if [[ -d $dataDirectory ]]; then
+                if [[ "$dataDirectory" == */ ]]; then
+                    # Global Variables
+                    set files
+                    getAllKNXRawFiles $dataDirectory
+                    lorawanData
+                else
+                    dataDirectory="$dataDirectory/"
+                    # Global Variables
+                    set files
+                    getAllKNXRawFiles $dataDirectory
+                    lorawanData
+                fi
+            else
+                echo "[!] Please enter a valid directory path"
+            fi
             ;;
     esac
 done
+if [ $OPTIND -eq 1 ]; then
+    usage
+fi
 

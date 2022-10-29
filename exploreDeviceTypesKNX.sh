@@ -53,13 +53,28 @@ do
             scriptDescription
             ;;
         p)
-
             dataDirectory=${OPTARG}
-            # Global Variables
-            set files
-            getAllKNXFiles $dataDirectory
-            displayResult
+            if [[ -d $dataDirectory ]]; then
+                if [[ "$dataDirectory" == */ ]]; then
+                    # Global Variables
+                    set files
+                    getAllKNXFiles $dataDirectory
+                    displayResult
+                else
+                    dataDirectory="$dataDirectory/"
+                    # Global Variables
+                    set files
+                    getAllKNXFiles $dataDirectory
+                    displayResult
+                fi
+            else
+                echo "[!] Please enter a valid directory path"
+            fi
             ;;
     esac
 done
+
+if [ $OPTIND -eq 1 ]; then
+    usage
+fi
 

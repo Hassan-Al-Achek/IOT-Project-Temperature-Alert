@@ -25,7 +25,7 @@ function extractTemp {
     echo "[+] Start temperature extraction"
     mkdir result 2>/dev/null
     totalNumOfFiles=$(echo $files | tr " " "\n" | wc -l)
-    echo $totalNumOfFiles 
+    echo "[+] Number of files to process: $totalNumOfFiles" 
     
     for file in $files
     do
@@ -48,11 +48,26 @@ do
         p)
 
             dataDirectory=${OPTARG}
-            # Global Variables
-            set files
-            getAllMQTTFiles $dataDirectory
-            extractTemp
+            if [[ -d $dataDirectory ]]; then
+                if [[ "$dataDirectory" == */ ]]; then
+                    # Global Variables
+                    set files
+                    getAllMQTTFiles $dataDirectory
+                    extractTemp
+                else
+                    dataDirectory="$dataDirectory/"
+                    # Global Variables
+                    set files
+                    getAllMQTTFiles $dataDirectory
+                    extractTemp
+                fi
+            else
+                echo "[!] Please enter a valid directory path"
+            fi
             ;;
     esac
 done
+if [ $OPTIND -eq 1 ]; then
+    usage
+fi
 

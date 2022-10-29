@@ -12,10 +12,10 @@ function usage {
 function scriptDescription {
     echo "[?] Description:
         This script take a path to a directory that contains all 
-        *_metrics.csv files and explore data types available on each file"
+        *_knx_metrics.csv files and explore data types available on each file"
 }
 
-function getAllMQTTFiles {
+function getAllKNXFiles {
     echo "[+] Getting all KNX collected files"
     echo "[+] Reading from the following directory: $1"
     files=$(ls $dataDirectory | grep "[[:digit:]]_knx_metrics\.csv$")
@@ -53,11 +53,26 @@ do
         p)
 
             dataDirectory=${OPTARG}
-            # Global Variables
-            set files
-            getAllMQTTFiles $dataDirectory
-            displayResult
+            if [[ -d $dataDirectory ]]; then
+                if [[ "$dataDirectory" == */ ]]; then
+                    # Global Variables
+                    set files
+                    getAllKNXFiles $dataDirectory
+                    displayResult
+                else
+                    dataDirectory="$dataDirectory/"
+                    # Global Variables
+                    set files
+                    getAllKNXFiles $dataDirectory
+                    displayResult
+                fi
+            else 
+                echo "[!] Please enter a valid directory path"
+            fi
             ;;
     esac
 done
+if [ $OPTIND -eq 1 ]; then
+    usage
+fi
 
