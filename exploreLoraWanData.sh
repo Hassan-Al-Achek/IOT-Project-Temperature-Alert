@@ -15,7 +15,7 @@ function scriptDescription {
         *_knx_raw.csv files and extract LoRaWan data"
 }
 
-function getAllMQTTFiles {
+function getAllKNXRawFiles {
     echo "[+] Getting all KNX_raw collected files"
     echo "[+] Reading from the following directory: $1"
     files=$(ls $dataDirectory | grep "[[:digit:]]_knx_raw\.csv$")
@@ -51,7 +51,7 @@ do
             dataDirectory=${OPTARG}
             # Global Variables
             set files
-            getAllMQTTFiles $dataDirectory
+            getAllKNXRawFiles $dataDirectory
             lorawanData
             ;;
     esac

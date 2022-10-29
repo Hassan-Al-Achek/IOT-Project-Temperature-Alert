@@ -1,0 +1,12 @@
+applicationID
+cat LoraWan/LoRaWanData_20220613_knx_raw.json | jq '.LoRaObject.applicationID'
+
+applicationName
+cat LoraWan/LoRaWanData_20220613_knx_raw.json | jq '.LoRaObject.applicationName'
+
+time
+cat LoraWan/LoRaWanData_20220613_knx_raw.json | jq '.LoRaObject.time'
+
+measurements:temperature
+
+cat LoraWan/LoRaWanData_20220613_knx_raw.json | jq ".measurements."
