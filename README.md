@@ -20,3 +20,9 @@ the files structures and components
 
 [![IOTDemo](https://img.youtube.com/vi/r8EkVcwo9iU/0.jpg)](https://www.youtube.com/watch?v=r8EkVcwo9iU)
 
+
+# To start the dashboard and alert system:
+
+[Dashboard and Alert System](src/README.md)
+
+
